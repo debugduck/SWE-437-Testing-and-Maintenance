@@ -5,12 +5,18 @@ import static java.lang.System.out;
 
 class QuoteApp {
     
-    private static Scanner scanner = new Scanner( System.in );
+    private static Scanner scanner;
     static QuoteSaxParser parser = new QuoteSaxParser("quotes.xml");
 	static QuoteList qList = parser.getQuoteList();
 	static ArrayList<String> userSearches = new ArrayList<String>();
 	static ArrayList<String> communitySearches = new ArrayList<String>();
+	static String path;
 	
+	static {
+		out.println("File path of your XML file: ");
+		scanner = new Scanner( System.in );
+		path = scanner.nextLine();
+	}
 	
     public static void main(String[] args) {    	
         commandsMenu();
