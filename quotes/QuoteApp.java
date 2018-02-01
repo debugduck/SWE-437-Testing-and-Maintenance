@@ -4,11 +4,15 @@ import static java.lang.System.out;
 
 class QuoteApp {
 
+
+    private static ArrayList<String> userSearches = new ArrayList<>();
+    private static ArrayList<String> communitySearches = new ArrayList<>();
     private static Scanner scanner = new Scanner( System.in );
     private static QuoteSaxParser parser = new QuoteSaxParser("quotes.xml");
 	 private static QuoteList qList = parser.getQuoteList();
 
     public static void main(String[] args) {
+
         commandsMenu();
     	String command = "none";
         boolean done = false;
@@ -69,19 +73,19 @@ class QuoteApp {
     }
 
     private static void recentUserSearch() {
-    	out.println("1. This");
-    	out.println("2. is");
-    	out.println("3. just");
-    	out.println("4. a");
-    	out.println("5. Mockup");
+	userSearches.add("henlo");
+	userSearches.add("mr lizer");
+	for(int i = 0; i < userSearches.size(); i++) {
+		out.println(i + 1 + ". " + userSearches.get(i));
+	}
     }
 
     private static void recentCommSearch() {
-    	out.println("1. This");
-    	out.println("2. is");
-    	out.println("3. just");
-    	out.println("4. a");
-    	out.println("5. Mockup");
+	communitySearches.add("henlo");
+	communitySearches.add("mr lizer");
+	for(int i = 0; i < communitySearches.size(); i++) {
+		out.println(i + 1 + ". " + communitySearches.get(i));
+	}
     }
 
     private static void searchQuotes() {
