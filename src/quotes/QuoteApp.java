@@ -17,7 +17,7 @@ class QuoteApp {
     	String command = "none";
         boolean done = false;
         while (!done) {
-        	out.println(">");
+        	out.print(">");
         	command = scanner.nextLine();
         	if (command.equalsIgnoreCase("c")) {
         		commandsMenu();
@@ -74,12 +74,14 @@ class QuoteApp {
     }
     
     private static void recentUserSearch() {
+    	out.println("User Searches: ");
     	for(int i = 0; i < userSearches.size(); i ++) {
     		out.println(i + 1 + ". " + userSearches.get(i));
     	}
     }
     
     private static void recentCommSearch() {
+    	out.println("Community Searches: ");
     	for(int i = 0; i < communitySearches.size(); i ++) {
     		out.println(i + 1 + ". " + communitySearches.get(i));
     	}
