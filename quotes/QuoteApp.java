@@ -1,10 +1,15 @@
+package quotes;
+
 import java.util.Scanner;
 import static java.lang.System.out;
+import java.util.ArrayList;
 
 class QuoteApp {
-    
+
     private static Scanner scanner = new Scanner( System.in );
-    
+    private static QuoteSaxParser qParser = new QuoteSaxParser ("C:/Users/anowi/Documents/GitHub/SWE-437-Testing-and-Maintenance/quotes/quotes.xml");
+    private static QuoteList quoteList = qParser.getQuoteList();
+
     public static void main(String[] args) {
         commandsMenu();
     	String command = "none";
@@ -26,7 +31,7 @@ class QuoteApp {
         	}
         }
     }
-    
+
     private static void commandsMenu() {
     	out.println("~~~~~~~~~~~~~~~~~COMMANDS~~~~~~~~~~~~~~~~~");
     	out.println("c = Display Commands List");
@@ -36,13 +41,16 @@ class QuoteApp {
     	out.println("q = Quit Program");
     	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-    
+
+    // Editing required
     private static void randomQuote() {
+      Quote quoteTmp = quoteList.getRandomQuote();
     	out.println("~~~~~~~~~~~~~~~~~RANDOM QUOTE~~~~~~~~~~~~~~~~~");
-    	out.println("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. - Lorem Ipsum");
+    	out.println("\"" + quoteTmp.getQuoteText() + "\"");
+      out.println(" - " + quoteTmp.getAuthor());
     	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-    
+
     private static void recentSearches() {
     	out.println("~~~~~~~~~~~~~~~~~RECENT SEARCHES~~~~~~~~~~~~~~~~~");
     	out.print("Do you want to display recent user searches or community searches? (u or c): ");
@@ -62,7 +70,7 @@ class QuoteApp {
     	}
     	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-    
+
     private static void recentUserSearch() {
     	out.println("1. This");
     	out.println("2. is");
@@ -70,7 +78,7 @@ class QuoteApp {
     	out.println("4. a");
     	out.println("5. Mockup");
     }
-    
+
     private static void recentCommSearch() {
     	out.println("1. This");
     	out.println("2. is");
@@ -78,7 +86,7 @@ class QuoteApp {
     	out.println("4. a");
     	out.println("5. Mockup");
     }
-    
+
     private static void searchQuotes() {
     	out.println("~~~~~~~~~~~~~~~~~SEARCH QUOTES~~~~~~~~~~~~~~~~~");
     	out.println("Select a scope- quote (q) author (a) both (b): ");
@@ -106,8 +114,8 @@ class QuoteApp {
     	out.println("3. just");
     	out.println("4. a");
     	out.println("5. Mockup");
-    	
+
     	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-    
+
 }
