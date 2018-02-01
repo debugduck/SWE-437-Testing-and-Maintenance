@@ -1,20 +1,19 @@
 package quotes;
-
 import java.util.Scanner;
 import static java.lang.System.out;
-import java.util.ArrayList;
 
 class QuoteApp {
 
     private static Scanner scanner = new Scanner( System.in );
-    private static QuoteSaxParser qParser = new QuoteSaxParser ("C:/Users/anowi/Documents/GitHub/SWE-437-Testing-and-Maintenance/quotes/quotes.xml");
-    private static QuoteList quoteList = qParser.getQuoteList();
+    private static QuoteSaxParser parser = new QuoteSaxParser("quotes.xml");
+	 private static QuoteList qList = parser.getQuoteList();
 
     public static void main(String[] args) {
         commandsMenu();
     	String command = "none";
         boolean done = false;
         while (!done) {
+        	out.println(">");
         	command = scanner.nextLine();
         	if (command.equalsIgnoreCase("c")) {
         		commandsMenu();
@@ -42,14 +41,12 @@ class QuoteApp {
     	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    // Editing required
     private static void randomQuote() {
-      Quote quoteTmp = quoteList.getRandomQuote();
-    	out.println("~~~~~~~~~~~~~~~~~RANDOM QUOTE~~~~~~~~~~~~~~~~~");
-    	out.println("\"" + quoteTmp.getQuoteText() + "\"");
-      out.println(" - " + quoteTmp.getAuthor());
-    	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    }
+     Quote quote = qList.getRandomQuote();
+     out.println("~~~~~~~~~~~~~~~~~RANDOM QUOTE~~~~~~~~~~~~~~~~~");
+     printQuote(quote);
+     out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+   }
 
     private static void recentSearches() {
     	out.println("~~~~~~~~~~~~~~~~~RECENT SEARCHES~~~~~~~~~~~~~~~~~");
@@ -91,15 +88,18 @@ class QuoteApp {
     	out.println("~~~~~~~~~~~~~~~~~SEARCH QUOTES~~~~~~~~~~~~~~~~~");
     	out.println("Select a scope- quote (q) author (a) both (b): ");
     	String inputScope = "none";
+    	int inputMode = 0;
     	String inputString = "none";
     	boolean valid = false;
     	while( !valid ) {
     		inputScope = scanner.nextLine();
         	if (inputScope.equalsIgnoreCase("q")) {
+        		inputMode = 1;
         		valid = true;
         	} else if (inputScope.equalsIgnoreCase("a")) {
         		valid = true;
         	}  else if (inputScope.equalsIgnoreCase("b")) {
+        		inputMode = 2;
         		valid = true;
         	} else {
         		out.println("Invalid command, try again.");
@@ -107,15 +107,17 @@ class QuoteApp {
     	}
     	out.println("Type in search string: ");
     	inputString = scanner.nextLine();
-    	out.println(">>>Now we do some search in scope " + inputScope + " with string: " + inputString);
-    	out.println("Results: ");
-    	out.println("1. This");
-    	out.println("2. is");
-    	out.println("3. just");
-    	out.println("4. a");
-    	out.println("5. Mockup");
 
+    	QuoteList results = qList.search(inputString, inputMode);
+    	out.println("Results: ");
+    	for (int i = 0; i < results.getSize(); i++) {
+    		printQuote(results.getQuote(i));
+    	}
     	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
+    private static void printQuote(Quote q) {
+      out.println("\"" + q.getQuoteText() + "\"");
+      out.println(" - " + q.getAuthor());
+    }
 }
