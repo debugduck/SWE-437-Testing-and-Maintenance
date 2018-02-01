@@ -1,23 +1,19 @@
 package quotes;
 import java.util.Scanner;
 import static java.lang.System.out;
-import java.util.ArrayList;
 
 class QuoteApp {
-
-
-    private static ArrayList<String> userSearches = new ArrayList<>();
-    private static ArrayList<String> communitySearches = new ArrayList<>();
+    
     private static Scanner scanner = new Scanner( System.in );
-    private static QuoteSaxParser qParser = new QuoteSaxParser ("C:/Users/anowi/Documents/GitHub/SWE-437-Testing-and-Maintenance/quotes/quotes.xml");
-    private static QuoteList quoteList = qParser.getQuoteList();
-
-    public static void main(String[] args) {
-
+    static QuoteSaxParser parser = new QuoteSaxParser("quotes.xml");
+	static QuoteList qList = parser.getQuoteList();
+	
+    public static void main(String[] args) {    	
         commandsMenu();
     	String command = "none";
         boolean done = false;
         while (!done) {
+        	out.println(">");
         	command = scanner.nextLine();
         	if (command.equalsIgnoreCase("c")) {
         		commandsMenu();
@@ -34,7 +30,7 @@ class QuoteApp {
         	}
         }
     }
-
+    
     private static void commandsMenu() {
     	out.println("~~~~~~~~~~~~~~~~~COMMANDS~~~~~~~~~~~~~~~~~");
     	out.println("c = Display Commands List");
@@ -44,16 +40,15 @@ class QuoteApp {
     	out.println("q = Quit Program");
     	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-
-    // Editing required
+    
     private static void randomQuote() {
-      Quote quoteTmp = quoteList.getRandomQuote();
     	out.println("~~~~~~~~~~~~~~~~~RANDOM QUOTE~~~~~~~~~~~~~~~~~");
-    	out.println("\"" + quoteTmp.getQuoteText() + "\"");
-      out.println(" - " + quoteTmp.getAuthor());
+    	Quote random = qList.getRandomQuote();
+    	printQuote(random);
+    	
     	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-
+    
     private static void recentSearches() {
     	out.println("~~~~~~~~~~~~~~~~~RECENT SEARCHES~~~~~~~~~~~~~~~~~");
     	out.print("Do you want to display recent user searches or community searches? (u or c): ");
@@ -73,36 +68,39 @@ class QuoteApp {
     	}
     	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-
+    
     private static void recentUserSearch() {
-	userSearches.add("henlo");
-	userSearches.add("mr lizer");
-	for(int i = 0; i < userSearches.size(); i++) {
-		out.println(i + 1 + ". " + userSearches.get(i));
-	}
+    	out.println("1. This");
+    	out.println("2. is");
+    	out.println("3. just");
+    	out.println("4. a");
+    	out.println("5. Mockup");
     }
-
+    
     private static void recentCommSearch() {
-	communitySearches.add("henlo");
-	communitySearches.add("mr lizer");
-	for(int i = 0; i < communitySearches.size(); i++) {
-		out.println(i + 1 + ". " + communitySearches.get(i));
-	}
+    	out.println("1. This");
+    	out.println("2. is");
+    	out.println("3. just");
+    	out.println("4. a");
+    	out.println("5. Mockup");
     }
-
+    
     private static void searchQuotes() {
     	out.println("~~~~~~~~~~~~~~~~~SEARCH QUOTES~~~~~~~~~~~~~~~~~");
     	out.println("Select a scope- quote (q) author (a) both (b): ");
     	String inputScope = "none";
+    	int inputMode = 0;
     	String inputString = "none";
     	boolean valid = false;
     	while( !valid ) {
     		inputScope = scanner.nextLine();
         	if (inputScope.equalsIgnoreCase("q")) {
+        		inputMode = 1;
         		valid = true;
         	} else if (inputScope.equalsIgnoreCase("a")) {
         		valid = true;
         	}  else if (inputScope.equalsIgnoreCase("b")) {
+        		inputMode = 2;
         		valid = true;
         	} else {
         		out.println("Invalid command, try again.");
@@ -110,15 +108,19 @@ class QuoteApp {
     	}
     	out.println("Type in search string: ");
     	inputString = scanner.nextLine();
-    	out.println(">>>Now we do some search in scope " + inputScope + " with string: " + inputString);
+    	
+    	QuoteList results = qList.search(inputString, inputMode);
     	out.println("Results: ");
-    	out.println("1. This");
-    	out.println("2. is");
-    	out.println("3. just");
-    	out.println("4. a");
-    	out.println("5. Mockup");
-
+    	for (int i = 0; i < results.getSize(); i++) {
+    		printQuote(results.getQuote(i));
+    	}
+    	
     	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-
+    
+    private static void printQuote(Quote q) {
+    	out.println(q.getQuoteText());
+    	out.println("\t -" + q.getAuthor());
+    }
+    
 }
