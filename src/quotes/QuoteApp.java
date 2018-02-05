@@ -35,10 +35,7 @@ class QuoteApp {
         	// Print a carot for visibility of which line user input is typing on
         	out.print(">");      	
         	command = scanner.nextLine();
-        	if (command.equalsIgnoreCase("c")) {
-        		// Display command list
-        		commandsMenu();
-        	} else if (command.equalsIgnoreCase("rq")) {
+        	if (command.equalsIgnoreCase("rq")) {
         		// Get a random quote
         		randomQuote();
         	} else if (command.equalsIgnoreCase("rs")) {
@@ -76,7 +73,6 @@ class QuoteApp {
     	out.println("================================================================================\n");
     	Quote random = qList.getRandomQuote();
     	printQuote(random);
-    	out.println("\n================================================================================\n");
     }
     
     private static void recentSearches() {
@@ -180,7 +176,7 @@ class QuoteApp {
     private static void printQuote(Quote q) {
     	out.println(q.getQuoteText());
     	out.println("\t -" + q.getAuthor() + "\n");
-	out.println("==================================================================================\n");
+	out.println("================================================================================\n");
     }
     
     // Helper function to add to user search arraylist and maintain most recent 5 searches
