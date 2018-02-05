@@ -11,44 +11,44 @@ import static java.lang.System.out;
 
 class QuoteApp {
     
-	//Static Variables
+    // Static Variables
     private static Scanner scanner = new Scanner(System.in);
-    static QuoteSaxParser parser;
+        static QuoteSaxParser parser;
 	static QuoteList qList;
 	static ArrayList<String> userSearches = new ArrayList<String>();
 	static ArrayList<String> communitySearches = new ArrayList<String>();
 	static String path;
 
-	//main function to run I/O loop
+    // Main function to run I/O loop
     public static void main(String[] args) { 
-        //User chooses location of "quotes.xml" as command-line argument
+        // User chooses location of "quotes.xml" as command-line argument
     	parser = new QuoteSaxParser(args[0]);
     	
-    	//Initialize a few necessary variables
+    	// Initialize a few necessary variables
         qList = parser.getQuoteList();
     	String command = "none";
         boolean done = false;
         
-        //I/O loop to run until user quits program. Also check for valid input command.
+        // I/O loop to run until user quits program. Also check for valid input command.
         while (!done) {
 		commandsMenu();      	
-        	//Print a carot for visibility of which line user input is typing on
+        	// Print a carot for visibility of which line user input is typing on
         	out.print(">");      	
         	command = scanner.nextLine();
         	if (command.equalsIgnoreCase("c")) {
-        		//Display command list
+        		// Display command list
         		commandsMenu();
         	} else if (command.equalsIgnoreCase("rq")) {
-        		//Get a random quote
+        		// Get a random quote
         		randomQuote();
         	} else if (command.equalsIgnoreCase("rs")) {
-        		//Display recent searches
+        		// Display recent searches
         		recentSearches();
         	} else if (command.equalsIgnoreCase("s")) {
-        		//Search quotes
+        		// Search quotes
         		searchQuotes();
         	} else if (command.equalsIgnoreCase("q")) {
-        		//Quit
+        		// Quit
         		done = true;
         	} else {
         		out.println("Invalid command, try again.");
@@ -86,16 +86,16 @@ class QuoteApp {
     	out.print("Do you want to display recent (u)ser searches or (c)ommunity searches? (u or c): ");
     	String input = "none";
     	
-    	//Loop to ensure valid input command
+    	// Loop to ensure valid input command
     	boolean valid = false;
     	while( !valid ) {
         	input = scanner.nextLine();
         	if (input.equalsIgnoreCase("u")) {
-        		//User Searchees
+        		// User Searches
         		valid = true;
         		recentUserSearch();
         	} else if (input.equalsIgnoreCase("c")) {
-        		//Community Searchese
+        		// Community Searches
         		valid = true;
         		recentCommSearch();
         	} else {
@@ -104,7 +104,7 @@ class QuoteApp {
     	}
     }
     
-    //helper function for recentSearches() that keeps logic to obtaining recent user searches
+    // Helper function for recentSearches() that keeps logic to obtaining recent user searches
     private static void recentUserSearch() {
 	out.println("=================");
 	out.println("| User Searches |");
@@ -119,7 +119,7 @@ class QuoteApp {
 	out.println("=================\n\n");
     }
     
-    //helper function for recentSearches() that keeps logic to obtaining recent community searches
+    // Helper function for recentSearches() that keeps logic to obtaining recent community searches
     private static void recentCommSearch() {
 	out.println("======================");
 	out.println("| Community Searches |");
@@ -141,19 +141,19 @@ class QuoteApp {
     	int inputMode = 0;
     	String inputString = "none";
     	
-    	//Loop to check for valid input argument
+    	// Loop to check for valid input argument
     	boolean valid = false;
     	while( !valid ) {
     		inputScope = scanner.nextLine();
         	if (inputScope.equalsIgnoreCase("q")) {
-        		//Quotes only search
+        		// Quotes only search
         		inputMode = 1;
         		valid = true;
         	} else if (inputScope.equalsIgnoreCase("a")) {
-        		//Author only search
+        		// Author only search
         		valid = true;
         	}  else if (inputScope.equalsIgnoreCase("b")) {
-        		//Search both quotes and authors
+        		// Search both quotes and authors
         		inputMode = 2;
         		valid = true;
         	} else {
@@ -163,7 +163,7 @@ class QuoteApp {
     	out.println("\nType in search string: ");
     	inputString = scanner.nextLine();
     	
-    	//Update arraylists holding information about recent searches
+    	// Update arraylists holding information about recent searches
     	addUserSearch(inputString);
     	addCommSearch(inputString);
     	
@@ -176,14 +176,14 @@ class QuoteApp {
     	
     }
     
-    //Helper function to print out a quote in the same format as the web app
+    // Helper function to print out a quote in the same format as the web app
     private static void printQuote(Quote q) {
     	out.println(q.getQuoteText());
     	out.println("\t -" + q.getAuthor() + "\n");
 	out.println("==================================================================================\n");
     }
     
-    //Helper function to add to user search arraylist and maintain most recent 5 searches
+    // Helper function to add to user search arraylist and maintain most recent 5 searches
     private static void addUserSearch(String s) {
     	if (userSearches.size() == 5) {
     		userSearches.remove(0);
@@ -191,7 +191,7 @@ class QuoteApp {
     	userSearches.add(s);
     }
 
-    //Helper function to add to community search arraylist and maintain most recent 5 searches
+    // Helper function to add to community search arraylist and maintain most recent 5 searches
     private static void addCommSearch(String s) {
     	if (communitySearches.size() == 5) {
     		communitySearches.remove(0);
