@@ -16,15 +16,13 @@ class QuoteApp {
     public static void main(String[] args) { 
         parser = new QuoteSaxParser(args[0]);
         qList = parser.getQuoteList();
-        commandsMenu();
     	String command = "none";
         boolean done = false;
         while (!done) {
+		commandsMenu();
         	out.print(">");
         	command = scanner.nextLine();
-        	if (command.equalsIgnoreCase("c")) {
-        		commandsMenu();
-        	} else if (command.equalsIgnoreCase("rq")) {
+        	if (command.equalsIgnoreCase("rq")) {
         		randomQuote();
         	} else if (command.equalsIgnoreCase("rs")) {
         		recentSearches();
@@ -39,26 +37,33 @@ class QuoteApp {
     }
     
     private static void commandsMenu() {
-    	out.println("~~~~~~~~~~~~~~~~~COMMANDS~~~~~~~~~~~~~~~~~");
-    	out.println("c = Display Commands List");
-    	out.println("rq = Get Random Quote");
-    	out.println("rs = Display Recent Searches");
-    	out.println("s = Search Quotes");
-    	out.println("q = Quit Program");
-    	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	out.println("                       ==================                       ");
+	out.println("                       |    Main Menu   |                       ");
+	out.println("                       ==================                       ");
+    	out.println("================================================================");
+    	out.println("|                   rq = Get Random Quote                      |");
+    	out.println("|                   rs = Display Recent Searches               |");
+    	out.println("|                   s = Search Quotes                          |");
+    	out.println("|                   q = Quit Program                           |");
+    	out.println("================================================================\n\n");
     }
     
     private static void randomQuote() {
-    	out.println("~~~~~~~~~~~~~~~~~RANDOM QUOTE~~~~~~~~~~~~~~~~~");
+	out.println("\n\n\n\n\n");
+	out.println("                       ==================                                         ");
+	out.println("                       |  Random Quote  |                                         ");
+	out.println("                       ==================                                         ");
+    	out.println("================================================================================\n");
     	Quote random = qList.getRandomQuote();
     	printQuote(random);
-    	
-    	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    	out.println("\n================================================================================\n");
     }
     
     private static void recentSearches() {
-    	out.println("~~~~~~~~~~~~~~~~~RECENT SEARCHES~~~~~~~~~~~~~~~~~");
-    	out.print("Do you want to display recent user searches or community searches? (u or c): ");
+	out.println("                       ===================                                         ");
+	out.println("                       | Recent Searches |                                         ");
+	out.println("                       ===================                                         \n");
+    	out.print("Do you want to display recent (u)ser searches or (c)ommunity searches? (u or c): ");
     	String input = "none";
     	boolean valid = false;
     	while( !valid ) {
@@ -73,26 +78,39 @@ class QuoteApp {
         		out.println("Invalid command, try again.");
         	}
     	}
-    	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
     
     private static void recentUserSearch() {
-    	out.println("User Searches: ");
-    	for(int i = 0; i < userSearches.size(); i ++) {
-    		out.println(i + 1 + ". " + userSearches.get(i));
-    	}
+	out.println("=================");
+	out.println("| User Searches |");
+	out.println("=================");
+	if(userSearches.isEmpty()) {
+		out.println("\n****There are no recent user searches.****\n");
+	} else {
+    		for(int i = 0; i < userSearches.size(); i ++) {
+    			out.println(i + 1 + ". " + userSearches.get(i));
+    		}
+	}
+	out.println("=================\n\n");
     }
     
     private static void recentCommSearch() {
-    	out.println("Community Searches: ");
-    	for(int i = 0; i < communitySearches.size(); i ++) {
-    		out.println(i + 1 + ". " + communitySearches.get(i));
-    	}
+	out.println("======================");
+	out.println("| Community Searches |");
+	out.println("======================");
+	if(userSearches.isEmpty()) {
+		out.println("\n****There are no recent community searches.****\n");
+	} else {
+    		for(int i = 0; i < communitySearches.size(); i ++) {
+    			out.println(i + 1 + ". " + communitySearches.get(i));
+    		}
+	}
+	out.println("======================\n\n");
     }
     
     private static void searchQuotes() {
-    	out.println("~~~~~~~~~~~~~~~~~SEARCH QUOTES~~~~~~~~~~~~~~~~~");
-    	out.println("Select a scope- quote (q) author (a) both (b): ");
+    	out.println("=========================================================");
+    	out.println("Select a scope- (q)uote (a)uthor (b)oth: ");
     	String inputScope = "none";
     	int inputMode = 0;
     	String inputString = "none";
@@ -111,22 +129,23 @@ class QuoteApp {
         		out.println("Invalid command, try again.");
         	}
     	}
-    	out.println("Type in search string: ");
+    	out.println("\nType in search string: ");
     	inputString = scanner.nextLine();
     	addUserSearch(inputString);
     	addCommSearch(inputString);
     	QuoteList results = qList.search(inputString, inputMode);
-    	out.println("Results: ");
+    	out.println("\nResults: \n");
+	out.println("==================================================================================");
     	for (int i = 0; i < results.getSize(); i++) {
     		printQuote(results.getQuote(i));
     	}
     	
-    	out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
     
     private static void printQuote(Quote q) {
     	out.println(q.getQuoteText());
-    	out.println("\t -" + q.getAuthor());
+    	out.println("\t -" + q.getAuthor() + "\n");
+	out.println("==================================================================================\n");
     }
     
     private static void addUserSearch(String s) {
