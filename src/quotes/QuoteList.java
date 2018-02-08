@@ -19,7 +19,7 @@ public class QuoteList
 
    // For returning a random quote
    private Random randomGen;
-   private final int seed = 19580427;
+   private final long seed = System.currentTimeMillis();;
 
    // Default constructor creates a new list and initializes the random seed
    public QuoteList()
