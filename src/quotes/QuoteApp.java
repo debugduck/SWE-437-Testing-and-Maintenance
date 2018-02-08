@@ -23,7 +23,7 @@ class QuoteApp {
 	static String path;
 
 	// Main function to run I/O loop
-	public static void main(String[] args) { 
+	public static void main(String[] args) throws Exception {
 		// User chooses location of "quotes.xml" as command-line argument
 		parser = new QuoteSaxParser(args[0]); // Get path to xml file
 
@@ -35,9 +35,9 @@ class QuoteApp {
 
 		// I/O loop to run until user quits program. Also check for valid input command.
 		while (!done) {
-			commandsMenu();      	
+			commandsMenu();
 			// Print a carot for visibility of which line user input is typing on
-			out.print(">");      	
+			out.print(">");
 			command = scanner.nextLine();
 			if (command.equalsIgnoreCase("aq")) {
 				// Add new quote to the xml file
@@ -52,7 +52,8 @@ class QuoteApp {
 				// Search quotes
 				searchQuotes();
 			} else if (command.equalsIgnoreCase("q")) {
-				// Quit
+				// Write quotes to XML file and Quit
+				writeXML();
 				done = true;
 			} else {
 				out.println("Invalid command, try again.");
@@ -184,10 +185,44 @@ class QuoteApp {
 		out.println("Thanks for adding to our quote library!\n\n");
 		updateQList(quote, author);
 	}
-		
+
 	private static void updateQList(String quoteText, String author) {
 		Quote newQuote = new Quote(author, quoteText);
 		qList.setQuote(newQuote);
 	}
-	
+
+	// Writes quotes listed in a QuoteList type to an XML file
+	private static void writeXML() throws Exception {
+
+	   try {
+
+			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(path));
+	   	bufferWriter.write("<?xml version=\"1.0\"?>\n");
+	   	bufferWriter.write("<quote-list>\n");
+
+	   	for (int i = 0; i < qList.getSize(); i++){
+
+	      	writeQuote(qList.getQuote(i), bufferWriter);
+	   	}
+
+	   	bufferWriter.write("</quote-list>");
+
+	   	bufferWriter.close();
+
+		} catch (IOException e) {};
+	}
+
+	// Writes a single quote to the current BufferWriter stream
+	private static void writeQuote(Quote quote, BufferedWriter bw) throws Exception {
+
+		try {
+	   	bw.write("\t<quote>\n");
+	   	bw.write("\t\t<quote-text>" + quote.getQuoteText() + "</quote-text>\n");
+	   	bw.write("\t\t<author>" + quote.getAuthor() + "</author>\n");
+	   	bw.write("\t</quote>\n");
+
+		} catch (IOException e) {};
+	}
+
+
 }
