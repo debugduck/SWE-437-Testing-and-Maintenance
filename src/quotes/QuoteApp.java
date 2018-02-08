@@ -173,7 +173,12 @@ class QuoteApp {
 		author = scanner.nextLine();
 		out.println("\nThe author you have entered is " + author + ".");
 		out.println("Thanks for adding to our quote library!\n\n");
+		updateQList(quote, author);
 	}
 		
+	private static void updateQList(String quoteText, String author) {
+		Quote newQuote = new Quote(author, quoteText);
+		qList.setQuote(newQuote);
+	}
 
 }
