@@ -201,5 +201,10 @@ class QuoteApp {
 		}
 		communitySearches.add(s);
 	}
+	
+	private static void updateQList(String quoteText, String author) {
+		Quote newQuote = new Quote(author, quoteText);
+		qList.setQuote(newQuote);
+	}
 
 }
