@@ -21,7 +21,7 @@ class QuoteApp {
 	// Main function to run I/O loop
 	public static void main(String[] args) { 
 		// User chooses location of "quotes.xml" as command-line argument
-		parser = new QuoteSaxParser(args[0]);
+		parser = new QuoteSaxParser(args[0]); // Get path to xml file
 
 		// Initialize a few necessary variables
 		qList = parser.getQuoteList();
