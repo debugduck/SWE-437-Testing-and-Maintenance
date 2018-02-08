@@ -34,7 +34,10 @@ class QuoteApp {
 			// Print a carot for visibility of which line user input is typing on
 			out.print(">");      	
 			command = scanner.nextLine();
-			if (command.equalsIgnoreCase("rq")) {
+			if (command.equalsIgnoreCase("aq")) {
+				// Add new quote to the xml file
+				getNewQuote();
+			} else if (command.equalsIgnoreCase("rq")) {
 				// Get a random quote
 				randomQuote();
 			} else if (command.equalsIgnoreCase("rs")) {
@@ -57,6 +60,7 @@ class QuoteApp {
 		out.println("                       |    Main Menu   |                       ");
 		out.println("                       ==================                       ");
 		out.println("================================================================");
+		out.println("|                   aq = Add a new Quote                       |");
 		out.println("|                   rq = Get Random Quote                      |");
 		out.println("|                   rs = Display Recent Searches               |");
 		out.println("|                   s = Search Quotes                          |");
@@ -159,5 +163,17 @@ class QuoteApp {
 		userSearches.add(s);
 	}
 
+	private static void getNewQuote() {
+		String quote = "";
+		String author = "";
+		out.println("Please enter the quote (*without* the author):");
+		quote = scanner.nextLine();
+		out.println("\nHere's the quote you just submitted:\n  \"" + quote + "\"");
+		out.println("\n\nNow, please enter the author of the quote.");
+		author = scanner.nextLine();
+		out.println("\nThe author you have entered is " + author + ".");
+		out.println("Thanks for adding to our quote library!\n\n");
+	}
+		
 
 }
