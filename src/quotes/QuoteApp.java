@@ -16,7 +16,6 @@ class QuoteApp {
 	static QuoteSaxParser parser;
 	static QuoteList qList;
 	static ArrayList<String> userSearches = new ArrayList<String>();
-	static ArrayList<String> communitySearches = new ArrayList<String>();
 	static String path;
 
 	// Main function to run I/O loop
@@ -78,25 +77,7 @@ class QuoteApp {
 		out.println("                       ===================                                         ");
 		out.println("                       | Recent Searches |                                         ");
 		out.println("                       ===================                                         \n");
-		out.println("Do you want to display recent (u)ser searches or (c)ommunity searches? (u or c): ");
-		String input = "none";
-
-		// Loop to ensure valid input command
-		boolean valid = false;
-		while( !valid ) {
-			input = scanner.nextLine();
-			if (input.equalsIgnoreCase("u")) {
-				// User Searches
-				valid = true;
-				recentUserSearch();
-			} else if (input.equalsIgnoreCase("c")) {
-				// Community Searches
-				valid = true;
-				recentCommSearch();
-			} else {
-				out.println("Invalid command, try again.");
-			}
-		}
+	        recentUserSearch();
 	}
 
 	// Helper function for recentSearches() that keeps logic to obtaining recent user searches
@@ -112,21 +93,6 @@ class QuoteApp {
 			}
 		}
 		out.println("=================\n\n");
-	}
-
-	// Helper function for recentSearches() that keeps logic to obtaining recent community searches
-	private static void recentCommSearch() {
-		out.println("======================");
-		out.println("| Community Searches |");
-		out.println("======================");
-		if(userSearches.isEmpty()) {
-			out.println("\n****There are no recent community searches.****\n");
-		} else {
-			for(int i = 0; i < communitySearches.size(); i ++) {
-				out.println(i + 1 + ". " + communitySearches.get(i));
-			}
-		}
-		out.println("======================\n\n");
 	}
 
 	private static void searchQuotes() {
@@ -163,7 +129,6 @@ class QuoteApp {
 
 		// Update arraylists holding information about recent searches
 		addUserSearch(inputString);
-		addCommSearch(inputString);
 
 		QuoteList results = qList.search(inputString, inputMode);
 		out.println("\nResults: \n");
@@ -194,14 +159,6 @@ class QuoteApp {
 		userSearches.add(s);
 	}
 
-	// Helper function to add to community search arraylist and maintain most recent 5 searches
-	private static void addCommSearch(String s) {
-		if (communitySearches.size() == 5) {
-			communitySearches.remove(0);
-		}
-		communitySearches.add(s);
-	}
-	
 	private static void updateQList(String quoteText, String author) {
 		Quote newQuote = new Quote(author, quoteText);
 		qList.setQuote(newQuote);
