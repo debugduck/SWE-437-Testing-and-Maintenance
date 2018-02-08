@@ -169,14 +169,18 @@ class QuoteApp {
 	}
 
 	private static void getNewQuote() {
+		out.println("                       ==================                                         ");
+		out.println("                       |   Add a Quote  |                                         ");
+		out.println("                       ==================                                         ");
+		out.println("================================================================================\n");
 		String quote = "";
 		String author = "";
 		out.println("Please enter the quote (*without* the author):");
 		quote = scanner.nextLine();
 		out.println("\nHere's the quote you just submitted:\n  \"" + quote + "\"");
-		out.println("\n\nNow, please enter the author of the quote.");
+		out.println("\nNow, please enter the author of the quote.");
 		author = scanner.nextLine();
-		out.println("\nThe author you have entered is " + author + ".");
+		out.println("\nThe author you have entered is \"" + author + "\".");
 		out.println("Thanks for adding to our quote library!\n\n");
 		updateQList(quote, author);
 	}
