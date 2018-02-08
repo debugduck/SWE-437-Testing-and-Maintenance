@@ -2,6 +2,10 @@ package quotes;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static java.lang.System.out;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 /*Authors:
  * Claire Cecil
@@ -26,6 +30,7 @@ class QuoteApp {
 		// Initialize a few necessary variables
 		qList = parser.getQuoteList();
 		String command = "none";
+		path = args[0];
 		boolean done = false;
 
 		// I/O loop to run until user quits program. Also check for valid input command.
@@ -163,5 +168,5 @@ class QuoteApp {
 		Quote newQuote = new Quote(author, quoteText);
 		qList.setQuote(newQuote);
 	}
-
+	
 }
