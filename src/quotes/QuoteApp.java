@@ -1,3 +1,4 @@
+
 package quotes;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -5,7 +6,6 @@ import static java.lang.System.out;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-
 
 /*Authors:
  * Claire Cecil
@@ -194,35 +194,26 @@ class QuoteApp {
 	// Writes quotes listed in a QuoteList type to an XML file
 	private static void writeXML() throws Exception {
 
-	   try {
+		BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(path));
+		bufferWriter.write("<?xml version=\"1.0\"?>\n");
+		bufferWriter.write("<quote-list>\n");
 
-			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(path));
-	   	bufferWriter.write("<?xml version=\"1.0\"?>\n");
-	   	bufferWriter.write("<quote-list>\n");
+		for (int i = 0; i < qList.getSize(); i++){
 
-	   	for (int i = 0; i < qList.getSize(); i++){
+			writeQuote(qList.getQuote(i), bufferWriter);
+		}
 
-	      	writeQuote(qList.getQuote(i), bufferWriter);
-	   	}
+		bufferWriter.write("</quote-list>");
 
-	   	bufferWriter.write("</quote-list>");
-
-	   	bufferWriter.close();
-
-		} catch (IOException e) {};
+		bufferWriter.close();
 	}
 
 	// Writes a single quote to the current BufferWriter stream
-	private static void writeQuote(Quote quote, BufferedWriter bw) throws Exception {
+	private static void writeQuote(Quote quote, BufferedWriter bw) throws IOException {
 
-		try {
-	   	bw.write("\t<quote>\n");
-	   	bw.write("\t\t<quote-text>" + quote.getQuoteText() + "</quote-text>\n");
-	   	bw.write("\t\t<author>" + quote.getAuthor() + "</author>\n");
-	   	bw.write("\t</quote>\n");
-
-		} catch (IOException e) {};
+		bw.write("\t<quote>\n");
+		bw.write("\t\t<quote-text>" + quote.getQuoteText() + "</quote-text>\n");
+		bw.write("\t\t<author>" + quote.getAuthor() + "</author>\n");
+		bw.write("\t</quote>\n");
 	}
-
-
 }
