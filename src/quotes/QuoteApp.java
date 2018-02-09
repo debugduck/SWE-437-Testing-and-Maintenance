@@ -176,13 +176,54 @@ class QuoteApp {
 		out.println("================================================================================\n");
 		String quote = "";
 		String author = "";
-		out.println("Please enter the quote (*without* the author):");
-		quote = scanner.nextLine();
-		out.println("\nHere's the quote you just submitted:\n  \"" + quote + "\"");
-		out.println("\nNow, please enter the author of the quote.");
-		author = scanner.nextLine();
-		out.println("\nThe author you have entered is \"" + author + "\".");
-		out.println("Thanks for adding to our quote library!\n\n");
+		out.println("***RULES FOR QUOTES***");
+		out.println("	-Quote must be a minimum of 3 characters and a maximum of 1000 characters");
+		out.println("	-Quote/Author must *not* contain the characters <,>, slashes, or double quotes (single quotes are permitted)");
+		out.println("	-Author must be a minimum of 3 characters and a maximum of 200 characters\n");
+		boolean valid = false;
+		String confirm = "";
+		while(!valid) {
+			out.println("Please enter the quote (WITHOUT the author):");
+			quote = scanner.nextLine();
+			if(quote.length() < 3 || quote.length() > 1000) {
+				out.println("Quote is either less than 3 characters or more than 1000 characters. Please try again.");
+			} else if(quote.contains("<") || quote.contains(">") || quote.contains("\\") || quote.contains("/") || quote.contains("\"")) {
+				out.println("Quote should not contain< , > , / , \\ , or \"");
+			} else {
+				valid = true;
+				out.println("\nHere's the quote you've entered:\n  \"" + quote + "\"");			
+				out.println("Please confirm that the above quote is correct (y)es or (n)o:");
+				confirm = scanner.nextLine();
+				if (!confirm.equalsIgnoreCase("y") && !confirm.equals("yes")) { // Any input that's not a yes or y will continue prompting for input
+					valid = false;
+					out.println("Quote aborted.\n");
+				}
+			}
+		}
+
+		valid = false;
+		confirm = "";
+		while(!valid) {
+			out.println("Please enter the author:");
+			author = scanner.nextLine();
+			if(author.length() < 3 || author.length() > 200) {
+				out.println("Author is either less than 3 characters or more than 200 characters. Please try again.");
+			} else if(author.contains("<") || author.contains(">") || author.contains("\\") || author.contains("/") || author.contains("\"")) {
+				out.println("Author should not contain < , > , / , \\ , or \"");
+			} else {
+				valid = true;
+				out.println("\nHere's the author you've entered:\n  \"" + author + "\"");			
+				out.println("Please confirm that the above author is correct (y)es or (n)o:");
+				confirm = scanner.nextLine();
+				if (!confirm.equalsIgnoreCase("y") && !confirm.equals("yes")) { // any input that's not a yes will continue prompting for input
+					valid = false;
+					out.println("Quote aborted.\n");
+				}
+
+			}
+		}
+		out.println("\nYour quote has been successfully added.");
+		out.println("\nThank you for adding to our quote library!");
 		updateQList(quote, author);
 	}
 
