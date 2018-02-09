@@ -227,6 +227,7 @@ class QuoteApp {
 		updateQList(quote, author);
 	}
 
+	//Takes two strings and creates a new Quote object to add to qList
 	private static void updateQList(String quoteText, String author) {
 		Quote newQuote = new Quote(author, quoteText);
 		qList.setQuote(newQuote);
@@ -251,7 +252,6 @@ class QuoteApp {
 
 	// Writes a single quote to the current BufferWriter stream
 	private static void writeQuote(Quote quote, BufferedWriter bw) throws IOException {
-
 		bw.write("\t<quote>\n");
 		bw.write("\t\t<quote-text>" + quote.getQuoteText() + "</quote-text>\n");
 		bw.write("\t\t<author>" + quote.getAuthor() + "</author>\n");
