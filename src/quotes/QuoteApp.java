@@ -35,6 +35,9 @@ class QuoteApp {
 
 		// I/O loop to run until user quits program. Also check for valid input command.
 		while (!done) {
+			out.println("Random Quote of the Day: ");
+			Quote welcomeQuote = qList.getRandomQuote();
+			printQuote(welcomeQuote);
 			commandsMenu();
 			// Print a carot for visibility of which line user input is typing on
 			out.print(">");
