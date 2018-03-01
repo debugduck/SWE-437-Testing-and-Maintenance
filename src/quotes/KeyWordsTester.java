@@ -21,6 +21,9 @@ public class KeyWordsTester {
 		out.println("	-Quote must be a minimum of 3 characters and a maximum of 1000 characters");
 		out.println("	-Quote/Author must *not* contain the characters <,>, slashes, or double quotes (single quotes are permitted)");
 		out.println("	-Author must be a minimum of 3 characters and a maximum of 200 characters\n");
+		out.println("	-Keywords must *not* contain the characters <,>, slashes, or double quotes (single quotes are permitted)");
+		out.println("	-Keywords must be one word that is less than 44 characters");
+		out.println("	-Max of 5 keywords allowed per quote");
 		boolean valid = false;
 		String confirm = "";
 		while(!valid) {
