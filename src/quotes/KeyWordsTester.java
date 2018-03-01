@@ -64,8 +64,41 @@ public class KeyWordsTester {
 			}
 		}
 		ArrayList<String> keyWords = new ArrayList<String>();
-		
-		
+		boolean notValid = false;
+		confirm = "";
+		boolean done = false;
+		while(!notValid && !done) {
+			out.println("Please enter a keyword:");
+			String keyword;
+			keyword = scanner.nextLine();
+			if(keyword.length() > 44) {
+				out.println("Keyword given is more than 44 characters. Please try again.");
+			} else if(keyword.contains(" ") || keyword.contains("<") || keyword.contains(">") || keyword.contains("\\") || keyword.contains("/") || keyword.contains("\"")) {
+				out.println("Keyword should be single word and should not contain < , > , / , \\ , or \"");
+			} else {
+				out.println("\nHere's the keyword you've entered:\n  \"" + keyword + "\"");			
+				out.println("Please confirm that the above keyword is correct (y)es or (n)o:");
+				confirm = scanner.nextLine();
+				if (confirm.equalsIgnoreCase("n") || confirm.equals("no")) { // any input that is a no with end prompting
+					notValid = true;
+					out.println("Quote aborted.\n");
+				} else
+				{
+					keyWords.add(keyword);
+					if (keyWords.size() < 5)
+					{
+						out.println("Are you done entering keywords? (y)es or (n)o:");
+						confirm = scanner.nextLine();
+						if (confirm.equalsIgnoreCase("y") || confirm.equals("yes")) { // any input that's a yes will end the prompting
+							done = true;
+						}
+					} else
+					{
+						done = true;
+					}
+				}
+			}
+		}
 		
 		out.println("\nYour quote has been successfully added.");
 		out.println("\nThank you for adding to our quote library!");
