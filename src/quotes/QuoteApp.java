@@ -232,7 +232,8 @@ class QuoteApp {
 
 	//Takes two strings and creates a new Quote object to add to qList
 	private static void updateQList(String quoteText, String author) {
-		Quote newQuote = new Quote(author, quoteText);
+		ArrayList<String> blah = new ArrayList<String>();  // short work around on fact quote.java format is different
+		Quote newQuote = new Quote(author, quoteText, blah);
 		qList.setQuote(newQuote);
 	}
 
@@ -258,6 +259,7 @@ class QuoteApp {
 		bw.write("\t<quote>\n");
 		bw.write("\t\t<quote-text>" + quote.getQuoteText() + "</quote-text>\n");
 		bw.write("\t\t<author>" + quote.getAuthor() + "</author>\n");
+		bw.write("\t\t<keywords>" + quote.getKeyWords().toString() + "</author>\n");
 		bw.write("\t</quote>\n");
 	}
 }
