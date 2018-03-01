@@ -40,7 +40,7 @@ public class KeyWordsTester {
 				confirm = scanner.nextLine();
 				if (!confirm.equalsIgnoreCase("y") && !confirm.equals("yes")) { // Any input that's not a yes or y will continue prompting for input
 					valid = false;
-					out.println("Quote aborted.\n");
+					out.println("Quote String aborted.\n");
 				}
 			}
 		}
@@ -61,16 +61,16 @@ public class KeyWordsTester {
 				confirm = scanner.nextLine();
 				if (!confirm.equalsIgnoreCase("y") && !confirm.equals("yes")) { // any input that's not a yes will continue prompting for input
 					valid = false;
-					out.println("Quote aborted.\n");
+					out.println("Author aborted.\n");
 				}
 
 			}
 		}
 		ArrayList<String> keyWords = new ArrayList<String>();
-		boolean notValid = false;
+		valid = false;
 		confirm = "";
 		boolean done = false;
-		while(!notValid && !done) {
+		while(!valid) {
 			out.println("Please enter a keyword:");
 			String keyword;
 			keyword = scanner.nextLine();
@@ -82,9 +82,9 @@ public class KeyWordsTester {
 				out.println("\nHere's the keyword you've entered:\n  \"" + keyword + "\"");			
 				out.println("Please confirm that the above keyword is correct (y)es or (n)o:");
 				confirm = scanner.nextLine();
-				if (confirm.equalsIgnoreCase("n") || confirm.equals("no")) { // any input that is a no with end prompting
-					notValid = true;
-					out.println("Quote aborted.\n");
+				if (!confirm.equalsIgnoreCase("y") && !confirm.equals("yes")) { // any input that's not a yes will continue prompting for input
+					out.println("Keyword aborted.\n");
+					continue;
 				} else
 				{
 					keyWords.add(keyword);
@@ -93,16 +93,15 @@ public class KeyWordsTester {
 						out.println("Are you done entering keywords? (y)es or (n)o:");
 						confirm = scanner.nextLine();
 						if (confirm.equalsIgnoreCase("y") || confirm.equals("yes")) { // any input that's a yes will end the prompting
-							done = true;
+							break;
 						}
 					} else
 					{
-						done = true;
+						break;
 					}
 				}
 			}
 		}
-		
 		out.println("\nYour quote has been successfully added.");
 		out.println("\nThank you for adding to our quote library!");
 		updateQList(quote, author, keyWords);
