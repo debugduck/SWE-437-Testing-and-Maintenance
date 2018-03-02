@@ -31,7 +31,7 @@ public class Quote
 		}
 		else
 			keyWords = new ArrayList<String>();
-		
+
 	}
 
 	// Getter and setter for author
@@ -49,6 +49,7 @@ public class Quote
 	{
 		return quoteText;
 	}
+
 	public void setQuoteText (String quoteText)
 	{
 		this.quoteText = quoteText;
@@ -66,13 +67,11 @@ public class Quote
 			this.keyWords = keyWords;
 			Collections.sort(keyWords);
 			return true;
-		} else 
+		} else
 		{
 			return false;
 		}
-
 	}
-
 
 	@Override
 	public String toString ()
@@ -80,13 +79,32 @@ public class Quote
 		return "Quote {" + "author='" + author + '\'' + ", quoteText='" + quoteText + '\'' + ", keyWords='" + keyWords.toString() + '}';
 	}
 
-	private boolean checkLimit(ArrayList<String> keyWords)
-	{
-		if (keyWords.size() > 5)
-			return false;
-		for (String s : keyWords)
-			if (s.length() > 44)
-				return false;
+	private boolean checkLimit(ArrayList<String> keyWords){
+
+		if (keyWords.size() > 5){
+			throw new IllegalArgumentException("Keyword per quote limit exceeded.");
+    }
+
+		for (String s : keyWords){
+			if (s.length() > 44){
+				throw new IllegalArgumentException("Keyword length exceeds 44 characters.");
+      }
+      if (containsWhitespace(s)){
+        throw new IllegalArgumentException("Keyword should not contain whitespace.");
+      }
+    }
 		return true;
 	}
+
+  // Checks that a given keyword contains whitespace:
+  private boolean containsWhitespace(String keyword){
+
+    for (int i = 0; i < keyword.length(); i++){
+
+      if (Character.isWhitespace(keyword.charAt(i))){
+        return true;
+      }
+    }
+    return false;
+  }
 }
