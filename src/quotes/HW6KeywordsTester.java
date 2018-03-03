@@ -14,8 +14,14 @@ public class HW6KeywordsTester{
 
   @Before public void setUp(){
 
-    ArrayList<String> keywords = new ArrayList<String>(Arrays.asList("one", "two"));
-    Quote q = new Quote("Quote1", "", keywords);
+    ArrayList<String> keywords1 = new ArrayList<String>(Arrays.asList("one", "two"));
+    Quote q = new Quote("Quote1", "", keywords1);
+    ArrayList<String> keywords2 = new ArrayList<String>(Arrays.asList("1", "two", "three"));
+    Quote q2 = new Quote("Quote", "", keywords2);
+
+    QuoteList qList = new QuoteList();
+    qList.setQuote(q1);
+		qList.setQuote(q2);
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +35,7 @@ public class HW6KeywordsTester{
   // TEST2 - Test to add keywords to quotes within 1 - 5 keyword bounds:
   @Test public void addKeywordsInBounds(){
 
-    q.setKeyWords(keywords.append("three"));
+    q1.setKeyWords(keywords.append("three"));
     assertTrue("Keywords list size not equal to 3", q.getKeyWords().size() == 3);
   }
 
@@ -39,10 +45,10 @@ public class HW6KeywordsTester{
   @Test (expected = IllegalArgumentException.class)
   public void addKeywordsOutBounds(){
 
-    q.addKeyWord("three");
-    q.addKeyWord("four");
-    q.addKeyWord("five");
-    q.addKeyWord("six");
+    q1.addKeyWord("three");
+    q1.addKeyWord("four");
+    q1.addKeyWord("five");
+    q1.addKeyWord("six");
   }
 
   /*//////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,7 +66,7 @@ public class HW6KeywordsTester{
   public void addKeywordOutLength(){
 
     String keyword = "ThisStringIsJustNOTWithinThe44CharacterLimits.";
-    q.addKeyWord(keyword);
+    q1.addKeyWord(keyword);
   }
 
   // TEST 6 - Test to check that a keyword with invalid characters is invalid:
@@ -68,14 +74,20 @@ public class HW6KeywordsTester{
   public void noInvalidChars(){
 
     String keyword = "ThisStringHas W H I T E S P A C E";
-    q.addKeyWord(keyword);
+    q1.addKeyWord(keyword);
   }
 
   // TEST 7 - Test to check that quotes containing queried keywords are returned:
   @Test public void searchQuotesKeyword(){
 
-    ArrayList<String> new_keywords = new ArrayList<String>(Arrays.asList("1", "two", "three"));
-    Quote new_q = new Quote("Quote2", "", new_keywords);
-    
+    String keyword = "two";
+    assertTrue("Incorrect quotes returned", qList.searchKeywords(keyword).equals(new ArrayList<Quote>(Arrays.asList(q1, q2))));
+  }
+
+  // TEST 8 - Test to check that no quotes returned if no matching keyword:
+  @Test public void searchQuotesKeyworNull(){
+
+    String keyword = "3";
+    assertTrue("Should have returned no quotes", qList.searchKeywords(keyword).equals(new ArrayList<Quote>()));
   }
 }
