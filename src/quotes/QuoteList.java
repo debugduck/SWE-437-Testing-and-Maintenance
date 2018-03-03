@@ -86,4 +86,23 @@ public class QuoteList
    {
       return quoteArray.get (randomGen.nextInt (quoteArray.size()));
    }
+
+   // Finds all quotes with a given keyword and returns the list of relevant quotes
+   public ArrayList<Quote> searchKeyword(String keyword) 
+   {
+      ArrayList<Quote> quotes = new ArrayList<>();
+      for (int i = 0; i < quoteArray.size(); i++)
+      {
+         Quote currentQuote = quoteArray.get(i);
+	 ArrayList<String> currentKeyWords = currentQuote.getKeyWords();
+	 for(int j = 0; j < currentKeyWords.size(); j++) 
+         {
+	    if(currentKeyWords.get(j).equals(keyword)) 
+            {
+               quotes.add(currentQuote);
+            }
+	 }
+      }
+      return quotes;
+   }
 }
