@@ -53,6 +53,9 @@ class QuoteApp {
 			} else if (command.equalsIgnoreCase("s")) {
 				// Search quotes
 				searchQuotes();
+			} else if(command.equalsIgnoreCase("sk")) {
+				// Search keyword
+				searchKeyword();
 			} else if (command.equalsIgnoreCase("q")) {
 				// Write quotes to XML file and Quit
 				writeXML();
@@ -72,6 +75,7 @@ class QuoteApp {
 		out.println("|                   rq = Get Random Quote                      |");
 		out.println("|                   rs = Display Recent Searches               |");
 		out.println("|                   s = Search Quotes                          |");
+		out.println("|                   sk = Search Keyword                       |");
 		out.println("|                   q = Quit Program                           |");
 		out.println("================================================================\n\n");
 	}
