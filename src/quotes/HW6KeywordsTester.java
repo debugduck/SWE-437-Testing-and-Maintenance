@@ -39,15 +39,15 @@ public class HW6KeywordsTester{
   @Test (expected = IllegalArgumentException.class)
   public void addKeywordsOutBounds(){
 
-    keywords.append("three");
-    keywords.append("four");
-    keywords.append("five");
-    keywords.append("six");
+    q.addKeyWord("three");
+    q.addKeyWord("four");
+    q.addKeyWord("five");
+    q.addKeyWord("six");
   }
 
   /*//////////////////////////////////////////////////////////////////////////////////////////////
   // REFACTORED BY REMOVING; COMBINATION OF TEST 4 AND TEST 2 ALREADY TEST FUNCTIONALITY FOR THIS
-  // TEST 4 - Test to check that a keyword stringg is within 44 characters or less:
+  // TEST 4 - Test to check that a keyword string is within 44 characters or less:
   @Test public void addKeywordInLength(){
 
     String keyword = "This-string-is-within-44-char-limits.";
@@ -59,15 +59,23 @@ public class HW6KeywordsTester{
   @Test (expected = IllegalArgumentException.class)
   public void addKeywordOutLength(){
 
-    String keyword = "This-string-is-NOT-within-44-character-limits.";
-    q.setKeyWords(new ArrayList<String>(Arrays.asList(keyword)));
+    String keyword = "ThisStringIsJustNOTWithinThe44CharacterLimits.";
+    q.addKeyWord(keyword);
   }
 
-  // TEST 6 - Test to check that a keyword with whitespace is invalid:
+  // TEST 6 - Test to check that a keyword with invalid characters is invalid:
   @Test (expected = IllegalArgumentException.class)
-  public void noWhitespace(){
+  public void noInvalidChars(){
 
-    String keyword = "This string has whitespace";
-    q.setKeyWords(new ArrayList<String>(Arrays.asList(keyword)));
+    String keyword = "ThisStringHas W H I T E S P A C E";
+    q.addKeyWord(keyword);
+  }
+
+  // TEST 7 - Test to check that quotes containing queried keywords are returned:
+  @Test public void searchQuotesKeyword(){
+
+    ArrayList<String> new_keywords = new ArrayList<String>(Arrays.asList("1", "two", "three"));
+    Quote new_q = new Quote("Quote2", "", new_keywords);
+    
   }
 }
