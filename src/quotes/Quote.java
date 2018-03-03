@@ -15,7 +15,9 @@ public class Quote
 	private ArrayList<String> keyWords;
 
 	// Default constructor does nothing
-	public Quote () {}
+	public Quote () {
+		this.keyWords = new ArrayList<String>();
+	}
 
 	// Constructor that assigns both strings
 	public Quote (String author, String quoteText, ArrayList<String> keywords)

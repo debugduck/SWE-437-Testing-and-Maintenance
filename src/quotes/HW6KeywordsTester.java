@@ -48,7 +48,7 @@ public class HW6KeywordsTester{
 
 		for (int i = 0; i < keyWordsTester.qList.getSize(); i++)
 		{
-			keyWordsTester.qList.getQuote(i).getKeyWords().add("three");
+			keyWordsTester.qList.getQuote(i).addKeyWord("haha");
 		}
 		boolean not3 = false;
 		for (int i = 0; i < keyWordsTester.qList.getSize(); i++)
@@ -104,15 +104,16 @@ public class HW6KeywordsTester{
 	@Test public void searchQuotesKeyword(){
 		String keyword = "two";
 		ArrayList<String> keyWords1 = new ArrayList<String>(Arrays.asList("one", "two"));
-		ArrayList<String> keyWords2 = new ArrayList<String>(Arrays.asList("two", "three"));
+		ArrayList<String> keyWords2 = new ArrayList<String>(Arrays.asList("three", "two"));
 		Quote q1 = new Quote("Quote One", "Author One", keyWords1);
 		Quote q2 = new Quote("Quote Two", "Author Two", keyWords2);
-		//assertTrue("Incorrect quotes returned", keyWordsTester.qList.searchKeywords(keyword).equals(new ArrayList<Quote>(Arrays.asList(q1, q2))));
+		ArrayList<Quote> returnQList = keyWordsTester.qList.searchKeyword(keyword);
+		assertTrue("Incorrect quotes returned"+ returnQList.toString(), returnQList.equals(new ArrayList<Quote>(Arrays.asList(q1, q2))));
 	}
 
 	// TEST 8 - Test to check that no quotes returned if no matching keyword:
 	@Test public void searchQuotesKeyworNull(){
 		String keyword = "3";
-		//assertTrue("Should have returned no quotes", keyWordsTester.qList.searchKeywords(keyword).equals(new ArrayList<Quote>()));
+		assertTrue("Should have returned no quotes", keyWordsTester.qList.searchKeyword(keyword).equals(new ArrayList<Quote>()));
 	}
 }
