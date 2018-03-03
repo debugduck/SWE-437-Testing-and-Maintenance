@@ -157,10 +157,58 @@ class QuoteApp {
 
 	}
 
+	private static void searchKeyword() {
+		out.println("                       ==================                                         ");
+		out.println("                       |  Search Keyword |                                         ");
+		out.println("                       ==================                                         ");
+		out.println("================================================================================\n");
+		out.println("Please enter a keyword:");
+		out.println("**Keyword must be one word, no whitespace**");
+		out.println("**Keyword must NOT be longer than 44 characters**");
+		out.println("**Keywords must *not* contain the characters <,>, slashes, or double quotes (single quotes are permitted)**");
+		String keyword = "";
+
+		// Loop to check for valid input argument
+		boolean valid = false;
+		while( !valid ) {
+			keyword = scanner.nextLine();
+			if (keyword.length() > 44) {
+				out.println("Keyword too long. Please try again.");
+			} else if (keyword.contains(" ")) {
+				out.println("Keyword contains whitespace. Please try again.");
+			} else if (keyword.contains("<") || keyword.contains(">") || keyword.contains("\\") || keyword.contains("/") || keyword.contains("\"")) {
+				out.println("Keyword contains invalid characters. Please try again.");
+			} else {
+				valid = true;
+			}
+		}
+
+		ArrayList<Quote> results = qList.searchKeyword(keyword);
+		out.println("\nResults: \n");
+		out.println("==================================================================================");
+		if (results.size() == 0) {
+			out.println("\n****There are no matching quotes.****\n");
+			out.println("================================================================================\n");
+		} else {
+			for (int i = 0; i < results.size(); i++) {
+				printQuote(results.get(i));
+			}
+		}
+				
+	
+	}
+
 	// Helper function to print out a quote in the same format as the web app
 	private static void printQuote(Quote q) {
 		out.println(q.getQuoteText());
 		out.println("\t -" + q.getAuthor() + "\n");
+		out.println("================================================================================\n");
+		out.println("KEYWORDS:");
+		if(q.getKeyWords().size() == 0) {
+			out.println("This quote has no keywords.");
+		} else {
+			out.println(q.getKeyWords().toString());
+		}
 		out.println("================================================================================\n");
 	}
 
@@ -183,6 +231,9 @@ class QuoteApp {
 		out.println("	-Quote must be a minimum of 3 characters and a maximum of 1000 characters");
 		out.println("	-Quote/Author must *not* contain the characters <,>, slashes, or double quotes (single quotes are permitted)");
 		out.println("	-Author must be a minimum of 3 characters and a maximum of 200 characters\n");
+		out.println("	-Keywords must *not* contain the characters <,>, slashes, or double quotes (single quotes are permitted)");
+		out.println("	-Keywords must be one word that is less than 44 characters");
+		out.println("	-Max of 5 keywords allowed per quote");
 		boolean valid = false;
 		String confirm = "";
 		while(!valid) {
@@ -199,7 +250,7 @@ class QuoteApp {
 				confirm = scanner.nextLine();
 				if (!confirm.equalsIgnoreCase("y") && !confirm.equals("yes")) { // Any input that's not a yes or y will continue prompting for input
 					valid = false;
-					out.println("Quote aborted.\n");
+					out.println("Quote String aborted.\n");
 				}
 			}
 		}
@@ -220,14 +271,50 @@ class QuoteApp {
 				confirm = scanner.nextLine();
 				if (!confirm.equalsIgnoreCase("y") && !confirm.equals("yes")) { // any input that's not a yes will continue prompting for input
 					valid = false;
-					out.println("Quote aborted.\n");
+					out.println("Author aborted.\n");
 				}
 
 			}
 		}
+		ArrayList<String> keyWords = new ArrayList<String>();
+		valid = false;
+		confirm = "";
+		boolean done = false;
+		while(!valid) {
+			out.println("Please enter a keyword:");
+			String keyword;
+			keyword = scanner.nextLine();
+			if(keyword.length() > 44) {
+				out.println("Keyword given is more than 44 characters. Please try again.");
+			} else if(keyword.contains(" ") || keyword.contains("<") || keyword.contains(">") || keyword.contains("\\") || keyword.contains("/") || keyword.contains("\"")) {
+				out.println("Keyword should be single word and should not contain < , > , / , \\ , or \"");
+			} else {
+				out.println("\nHere's the keyword you've entered:\n  \"" + keyword + "\"");			
+				out.println("Please confirm that the above keyword is correct (y)es or (n)o:");
+				confirm = scanner.nextLine();
+				if (!confirm.equalsIgnoreCase("y") && !confirm.equals("yes")) { // any input that's not a yes will continue prompting for input
+					out.println("Keyword aborted.\n");
+					continue;
+				} else
+				{
+					keyWords.add(keyword);
+					if (keyWords.size() < 5)
+					{
+						out.println("Are you done entering keywords? (y)es or (n)o:");
+						confirm = scanner.nextLine();
+						if (confirm.equalsIgnoreCase("y") || confirm.equals("yes")) { // any input that's a yes will end the prompting
+							break;
+						}
+					} else
+					{
+						break;
+					}
+				}
+			}
+		}
 		out.println("\nYour quote has been successfully added.");
 		out.println("\nThank you for adding to our quote library!");
-		updateQList(quote, author);
+		updateQList(quote, author, keyWords);
 	}
 
 	//Takes two strings and creates a new Quote object to add to qList
