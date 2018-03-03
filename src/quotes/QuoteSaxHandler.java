@@ -69,6 +69,10 @@ public void startElement (String uri, String name, String qName, Attributes atts
    {
       currentElement = QuoteTextElem;
    }
+   else if (qName.equalsIgnoreCase (QuoteKeywordsElem))
+   {
+      currentElement = QuoteKeywordsElem;
+   }
 }
 
 @Override
@@ -97,9 +101,9 @@ public void characters (char ch[], int start, int length)
       }
       else if (currentElement.equalsIgnoreCase (QuoteKeywordsElem))
       {
-    	  String [] tempArray = value.split(",");
-    	  tempArray[0] = tempArray[0].substring(1, tempArray[0].length()-1);
-    	  tempArray[tempArray.length] = tempArray[tempArray.length].substring(0, tempArray[tempArray.length].length()-2);
+    	  String [] tempArray = value.split(", ");
+    	  tempArray[0] = tempArray[0].substring(1, tempArray[0].length());
+    	  tempArray[tempArray.length-1] = tempArray[tempArray.length-1].substring(0, tempArray[tempArray.length-1].length()-1);
     	  ArrayList<String> keywords = new ArrayList<String>(Arrays.asList(tempArray));
     	  quoteTmp.setKeyWords (keywords);
       }

@@ -32,12 +32,11 @@ class QuoteApp {
 		String command = "none";
 		path = args[0];
 		boolean done = false;
-
+		out.println("~~~~~~~~~~~~~Random Quote of the Day~~~~~~~~~~~~~~~");
+		Quote welcomeQuote = qList.getRandomQuote();
+		printQuote(welcomeQuote);
 		// I/O loop to run until user quits program. Also check for valid input command.
 		while (!done) {
-			out.println("~~~~~~~~~~~~~Random Quote of the Day~~~~~~~~~~~~~~~");
-			Quote welcomeQuote = qList.getRandomQuote();
-			printQuote(welcomeQuote);
 			commandsMenu();
 			// Print a carot for visibility of which line user input is typing on
 			out.print(">");
@@ -202,14 +201,14 @@ class QuoteApp {
 	private static void printQuote(Quote q) {
 		out.println(q.getQuoteText());
 		out.println("\t -" + q.getAuthor() + "\n");
-		out.println("================================================================================\n");
-		out.println("KEYWORDS:");
+		out.println("\t \t ================================================================================");
+		out.println("\t \t KEYWORDS:");
 		if(q.getKeyWords().size() == 0) {
-			out.println("This quote has no keywords.");
+			out.println("\t \t This quote has no keywords.");
 		} else {
-			out.println(q.getKeyWords().toString());
+			out.println("\t \t" + q.getKeyWords().toString());
 		}
-		out.println("================================================================================\n");
+		out.println("\t \t ================================================================================\n");
 	}
 
 	// Helper function to add to user search arraylist and maintain most recent 5 searches

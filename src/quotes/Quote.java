@@ -64,7 +64,7 @@ public class Quote
   // Sets a whole list of keywords to KeyWords
 	public void setKeyWords (ArrayList<String> keyWords)
   {
-    if (keyWords.size() > 5)
+    if (keyWords.size() <= 5)
     {
       for (String keyword : keyWords)
         if (checkKeyword(keyword))
