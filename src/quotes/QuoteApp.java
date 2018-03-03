@@ -259,7 +259,7 @@ class QuoteApp {
 		bw.write("\t<quote>\n");
 		bw.write("\t\t<quote-text>" + quote.getQuoteText() + "</quote-text>\n");
 		bw.write("\t\t<author>" + quote.getAuthor() + "</author>\n");
-		bw.write("\t\t<keywords>" + quote.getKeyWords().toString() + "</author>\n");
+		bw.write("\t\t<keywords>" + quote.getKeyWords().toString() + "</keywords>\n");
 		bw.write("\t</quote>\n");
 	}
 }
