@@ -45,15 +45,17 @@ public class HW6KeywordsTester{
     keywords.append("six");
   }
 
-  // Test to check that a keyword stringg is within 44 characters or less:
+  /*//////////////////////////////////////////////////////////////////////////////////////////////
+  // REFACTORED BY REMOVING; COMBINATION OF TEST 4 AND TEST 2 ALREADY TEST FUNCTIONALITY FOR THIS
+  // TEST 4 - Test to check that a keyword stringg is within 44 characters or less:
   @Test public void addKeywordInLength(){
 
     String keyword = "This-string-is-within-44-char-limits.";
     q.setKeyWords(new ArrayList<String>(Arrays.asList(keyword)));
     assertTrue("Keyword invalid size", q.getKeyWords().get(0).length() == keyword.length())
-  }
+  }*/
 
-  // Test to check that a keyword greater than 44 characters results in error:
+  // TEST 5 - Test to check that a keyword greater than 44 characters results in error:
   @Test (expected = IllegalArgumentException.class)
   public void addKeywordOutLength(){
 
@@ -61,7 +63,7 @@ public class HW6KeywordsTester{
     q.setKeyWords(new ArrayList<String>(Arrays.asList(keyword)));
   }
 
-  // Test to check that a keyword with whitespace is invalid:
+  // TEST 6 - Test to check that a keyword with whitespace is invalid:
   @Test (expected = IllegalArgumentException.class)
   public void noWhitespace(){
 
