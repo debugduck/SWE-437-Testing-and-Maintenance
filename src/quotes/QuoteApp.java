@@ -231,9 +231,8 @@ class QuoteApp {
 	}
 
 	//Takes two strings and creates a new Quote object to add to qList
-	private static void updateQList(String quoteText, String author) {
-		ArrayList<String> blah = new ArrayList<String>();  // short work around on fact quote.java format is different
-		Quote newQuote = new Quote(author, quoteText, blah);
+	private static void updateQList(String quoteText, String author, ArrayList<String> keywords) {
+		Quote newQuote = new Quote(author, quoteText, keywords);
 		qList.setQuote(newQuote);
 	}
 
