@@ -124,4 +124,14 @@ public class Quote
   {
     return "Quote {" + "author='" + author + '\'' + ", quoteText='" + quoteText + '\'' + ", keyWords='" + keyWords.toString() + '}';
   }
+
+  @Override
+  public boolean equals (Object other)
+  {
+    if (other instanceof Quote){
+      Quote that = (Quote) other;
+      return (this.author.equals(that.author) && this.quoteText.equals(that.quoteText) && this.keyWords.equals(that.keyWords));
+    }
+    return false;
+  }
 }
