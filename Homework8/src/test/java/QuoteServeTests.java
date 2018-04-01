@@ -112,7 +112,7 @@ public class QuoteServeTests {
         WebElement submit = driver.findElement(By.xpath("//input[@name='submit' and @value='search']"));
         searchQuotes.sendKeys("test123");
         submit.click();
-        Assert.assertTrue(driver.getPageSource().contains("test123"));
+        Assert.assertTrue(driver.getPageSource().contains("test123</a></li></ol><td style="));
         driver.quit();
     }
 
@@ -124,7 +124,7 @@ public class QuoteServeTests {
         WebElement submit = driver.findElement(By.xpath("//input[@name='submit' and @value='search']"));
         searchQuotes.sendKeys("test123");
         submit.click();
-        Assert.assertTrue(driver.getPageSource().contains("test123"));
+        Assert.assertTrue(driver.getPageSource().contains("test123</a></li></ol></tr></table>"));
         driver.quit();
     }
 
