@@ -11,4 +11,22 @@ import java.util.*;
 
 public class HW11Tester {
 	
+	@Test 
+	public void P1R1() {}
+	
+	@Test 
+	public void P1R2() {}
+	
+	@Test 
+	public void P2R3() {}
+	
+	@Test 
+	public void P2R5() {}
+	
+	@Test 
+	public void P2R6() {}
+	
+	@Test 
+	public void P2R7() {}
+	
 }
